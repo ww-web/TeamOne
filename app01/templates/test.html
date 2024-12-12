@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #fff;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    .welcome {
+        font-size: 24px;
+        color: #003366;
+        margin-bottom: 20px;
+    }
+    .input-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .input-group select {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px 0 0 5px;
+        margin-right: -1px;
+    }
+    .input-group input {
+        flex: 3;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 0 5px 5px 0;
+    }
+    .input-group input::placeholder {
+        color: #888;
+    }
+    .send-btn {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .send-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="welcome">欢迎使用</div>
+    <div class="input-group">
+        <select>
+            <option value="+86">+86</option>
+            <!-- Add other country codes as needed -->
+        </select>
+        <input type="tel" placeholder="输入手机号码">
+    </div>
+    <button class="send-btn">发送验证码</button>
+</div>
+
+</body>
+</html>
