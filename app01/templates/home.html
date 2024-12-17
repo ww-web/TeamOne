@@ -1,0 +1,16 @@
+{% extends 'a_template.html' %}
+{% load static %}
+
+{% block title %}首 页{% endblock %}
+
+{% block style %}
+    img{
+        width: 100%;
+    }
+{% endblock %}
+
+{% block content %}
+<div>
+    <img src="{% static 'img/B276.png' %}">
+</div>
+{% endblock %}

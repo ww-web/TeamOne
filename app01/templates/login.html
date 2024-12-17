@@ -45,7 +45,7 @@
             <input id="btnLogin" type="button" class="btn btn-primary" value="登  录">
         </div>
         <div class="col-xs-7 text-right">
-            <a type="button" href="{% url 'login_passwd' %}" >帐号密码登录</a>
+            <a href="/login/password" style="display: block; margin-top: 15px;">账号密码登录</a>
         </div>
     </div>
 
@@ -70,7 +70,7 @@
                 data: {mobile_phone: mobilePhone,tpl:'login'},
                 success:function (res) {
                     if (res.status){
-                        console.log(成功);
+                        location.href = res.data;
                     } else{
                         $.each(res.error,function(key,value){
                             $('#id_' + key).next().text(value[0]);

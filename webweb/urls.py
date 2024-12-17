@@ -19,8 +19,12 @@ from app01 import views
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
-    url('register/', views.register,name="register"),
-    url('send/sms/',views.send_sms,name="send_sms"),
+    url(r'^$',views.home,name='home'),
+    url(r'^register/$', views.register,name="register"),
+    url(r'^send/sms/$',views.send_sms,name="send_sms"),
     url(r'^login/$',views.login,name='login'),
-    url('login/password/',views.login_password,name='login_passwd'),
+    url(r'login/password/',views.login_password,name='login_passwd'),
+    url(r'^image/code/',views.image_code,name='img_code'),
+    url(r'logout/$',views.logout,name='logout'),
+
 ]
