@@ -23,8 +23,9 @@ urlpatterns = [
     url(r'^register/$', views.register,name="register"),
     url(r'^send/sms/$',views.send_sms,name="send_sms"),
     url(r'^login/$',views.login,name='login'),
+    # 当短信登录，URL有一个参数时使用
+    url(r'^login/(?P<param>\w+)/$',views.login,name='login'),
     url(r'login/password/',views.login_password,name='login_passwd'),
     url(r'^image/code/',views.image_code,name='img_code'),
     url(r'logout/$',views.logout,name='logout'),
-
 ]

@@ -32,8 +32,16 @@ def send_sms(request):
 #################################### 短信登录
 def login(request):
     if request.method == 'GET':
-        form = account.login()
-        # return HttpResponse('登录')
+
+        initial_data = {}
+        ## 我们想要填充的字段名为'mobile_phone'，并且期望的GET参数是'phone'
+        # 获取URL中的GET参数,如果'phone'不存在,# 默认为空字符串，
+        my_field_value = request.GET.get('phone', '')
+        # 将获取的值添加到初始数据字典中
+        initial_data['mobile_phone'] = my_field_value
+        # 创建表单实例，并传入initial_data作为初始值
+        form = account.login(initial=initial_data)
+
         return render(request,'login.html',{'form':form})
     form = account.login(data=request.POST)
     if form.is_valid():
@@ -83,13 +91,3 @@ def logout(request):
 
     url = reverse('home')
     return HttpResponseRedirect(url)
-
-
-
-
-
-
-
-
-
-

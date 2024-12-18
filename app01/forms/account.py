@@ -116,7 +116,6 @@ class login(BootStrapForm,forms.Form):
     def clean_code(self):
         mobile_phone = self.cleaned_data.get('mobile_phone')
         code = self.cleaned_data['code']
-        print(code)
         if not mobile_phone:
             return code
 
