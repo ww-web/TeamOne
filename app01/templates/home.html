@@ -1,4 +1,4 @@
-{% extends 'a_template.html' %}
+{% extends 'loyal/a_template.html' %}
 {% load static %}
 
 {% block title %}Teamone-简单好用的项目协同工具{% endblock %}
@@ -33,6 +33,7 @@
         margin: 0;
     }
 
+
     .banner-form--1QtMs {
         margin: 0 auto;
         margin-top: 24px;
@@ -48,6 +49,7 @@
         border-color: transparent;
         cursor: pointer;
         height: 64px;
+        outline: none;
     }
     .banner-form--1QtMs .freeuse input {
         border: 1.5px solid #e5e5e5;
@@ -57,6 +59,11 @@
         font-size: 16px;
         position: relative;
     }
+    input::placeholder {
+        color: #ccc;
+        opacity: 1;
+  }
+
 
     .new-banner-item-btn-container--33ORB {
         display: -ms-flexbox;
@@ -71,6 +78,8 @@
         color: #fff;
         overflow: hidden;
         border-radius: 10px;
+        cursor: pointer;
+        text-decoration: none;
     }
     .new-banner-item-btn-container--33ORB a:first-child>span {
         width: 122px;
@@ -95,7 +104,7 @@
 
     <div class="banner-form--1QtMs">
         <from class="freeuse--1FMRm freeuse">
-            <input class="normal" placeholder="请输入手机号" value="">
+            <input class="normal" type="text" placeholder="请输入手机号" style="">
             <div class="new-banner-item-btn-container--33ORB">
                 <a>
                     <span>立即使用</span>

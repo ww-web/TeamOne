@@ -1,11 +1,14 @@
 from django.shortcuts import render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from io import BytesIO
-# Create your views here.
+# Create your views_list here.
 from django.urls import reverse
 from django.http import HttpResponse,HttpResponseRedirect
 from django.http import JsonResponse
 from django.db.models import Q
+import uuid
+import datetime
+
 from app01 import models
 from app01.forms import account
 from utils.image_code import check_code
@@ -18,7 +21,17 @@ def register(request):
 
     form = account.myforms(data=request.POST)
     if form.is_valid():
-        form.save()
+        instance = form.save()
+        policy_object = models.Price.objects.filter(category=1).first()
+        models.Transaction.objects.create(
+            status=1,
+            user=instance,
+            price_policy=policy_object,
+            count=0,
+            price=0,
+            start_datetime=datetime.datetime.now(),
+            order=str(uuid.uuid4)
+        )
         return JsonResponse({'status': True,'data':'/login'})
     # return render(request,'register.html',{'form': form})
     return JsonResponse({'status': False,'error': form.errors})
@@ -46,8 +59,11 @@ def login(request):
     form = account.login(data=request.POST)
     if form.is_valid():
         # form.save()
+        models_phone = form.cleaned_data['mobile_phone']
+        user_object = models.UserInfo.objects.filter(models_phone=models_phone).first()
+        request.session['user_id'] = user_object.id
         url = reverse('home')
-        return JsonResponse({'status': True,'data': url })
+        return JsonResponse({'status': True,'data': '/project/list' })
     return JsonResponse({'status': False,'error': form.errors})
 
 #################################### 密码登录
@@ -59,13 +75,12 @@ def login_password(request):
     if form.is_valid():
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
-        print(password)
         user_object = models.UserInfo.objects.filter(Q(email=username)|Q(mobile_phone=username)).filter(password=password).first()
         if user_object:
             request.session['user_id'] = user_object.id
             request.session.set_expiry(60 * 60 * 24 * 14)
             url = reverse('home')
-            return HttpResponseRedirect(url)
+            return redirect('/project/list')
         form.add_error('username','账号或密码错误，请重试')
     return render(request,'login_password.html',{'form':form})
 

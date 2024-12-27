@@ -1,4 +1,4 @@
-{% extends 'a_template.html' %}
+{% extends 'loyal/a_template.html' %}
 {% load static %}
 
 {% block title %}用户登录{% endblock %}
@@ -7,9 +7,7 @@
 {% endblock %}
 
 {% block style %}
-    .error-msg{
-        color: red;
-    }
+
 {% endblock %}
 
 {% block content %}
@@ -70,7 +68,7 @@
                 data: {mobile_phone: mobilePhone,tpl:'login'},
                 success:function (res) {
                     if (res.status){
-                        location.href = res.data;
+                        console.log('显示倒计时');
                     } else{
                         $.each(res.error,function(key,value){
                             $('#id_' + key).next().text(value[0]);
@@ -91,7 +89,7 @@
                 dataType: 'JSON',
                 success:function(res){
                     if (res.status){
-                        console.log('成功');
+                        location.href = res.data;
                     }else{
                         $.each(res.error,function(key,value){
                             $('#id_' + key).next().text(value[0]);
