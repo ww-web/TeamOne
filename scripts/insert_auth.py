@@ -14,8 +14,6 @@ def run():
             create_datatime=5
         )
 
-    if
-
 
 if __name__ == '__main__':
     run()
