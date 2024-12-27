@@ -4,7 +4,8 @@ from app01 import models
 from app01.forms.bootstrap import BootStrapForm
 
 
-class projectListForm(BootStrapForm,forms.ModelForm):
+
+class projectCreateForm(BootStrapForm,forms.ModelForm):
 
     class Meta:
         model = models.Project
@@ -30,3 +31,10 @@ class projectListForm(BootStrapForm,forms.ModelForm):
         if count >= num:
             raise ValidationError("项目已超额，请升级")
         return name
+
+
+class projectListForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Project
+        fields = ['name',]

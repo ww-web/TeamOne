@@ -1,4 +1,9 @@
 {% extends 'loyal/b_projects.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/projects_list.css' %}">
+{% endblock %}
 
 {% block style %}
     .project{
@@ -15,6 +20,42 @@
         </a>
     </div>
 
+    <div class="container">
+        {% for project in projects %}
+        <div data-goldlog-key="project-portal.project-card" class="card-container__Xkdh">
+            <div class="outer__H05m">
+                <div class="container__jRZR space__hHZA preview-enabled__n3A3 not-starred___BSl">
+                    <div class="thumbnail__T3be"
+                         style="background-image: url(&quot;https://tcs-ga.teambition.net/thumbnail/111tef9a0fbcb8a22b1ea0de47d85b9a52e0/w/600/h/300&quot;);"></div>
+                    <div class="mask__KQhc"></div>
+                    <div class="content__MLRM">
+                        <div class="header__QvEs">
+                            <div></div>
+                            <div><i aria-haspopup="true" aria-expanded="false"
+                                    scripturl="https://at.alicdn.com/t/font_1310450_jddjf5l9zi.js"
+                                    class="next-icon next-icon-user-add next-medium handler__A3LB">
+                                <svg viewBox="0 0 1024 1024">
+                                    <use xlink:href="#at-user-add"></use>
+                                </svg>
+                            </i><i aria-haspopup="true" aria-expanded="false"
+                                   scripturl="https://at.alicdn.com/t/font_1310450_jddjf5l9zi.js"
+                                   class="next-icon next-icon-trashbin next-medium handler__A3LB">
+                                <svg viewBox="0 0 1024 1024">
+                                    <use xlink:href="#at-trashbin"></use>
+                                </svg>
+                            </i></div>
+                        </div>
+                        <div class="footer__ZKZV card-foot">
+                            <div class="name__wt7q" title="哔哩哔哩">{{ project.name }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+<!-- 创建项目的模态框 -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -26,7 +67,7 @@
                 <div class="modal-body">
                     <form id="addForm">
                     {% csrf_token %}
-                        {% for field in form %}
+                        {% for field in form_a %}
                         <div class="form-group">
                             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                             {{ field }}
