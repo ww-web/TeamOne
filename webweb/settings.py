@@ -118,12 +118,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 WHITE_REGEX_URL_LIST = [
-    '/',
     '/register/',
     '/send/sms/',
     '/login/',
     '/login/password/',
-    '/image/code/'
+    '/image/code/',
+    '/',
 ]
 
 try:

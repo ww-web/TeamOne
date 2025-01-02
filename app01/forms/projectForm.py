@@ -32,9 +32,3 @@ class projectCreateForm(BootStrapForm,forms.ModelForm):
             raise ValidationError("项目已超额，请升级")
         return name
 
-
-class projectListForm(forms.ModelForm):
-
-    class Meta:
-        model = models.Project
-        fields = ['name',]

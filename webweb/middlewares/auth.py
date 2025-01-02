@@ -20,16 +20,23 @@ class AuthMiddleware(MiddlewareMixin):
         request.tracer.user = user_object
 
         ### 判断当前url是否可以访问
-        if request.path_info in settings.WHITE_REGEX_URL_LIST:
+        if not request.tracer.user and request.path_info in settings.WHITE_REGEX_URL_LIST:
             return
-        if not request.tracer:
+        if not request.tracer.user:
             url = reverse('home')
             return redirect(url)
+
+        settings.WHITE_REGEX_URL_LIST.remove('/')
+        if request.tracer.user and request.path_info in settings.WHITE_REGEX_URL_LIST:
+            settings.WHITE_REGEX_URL_LIST.append('/')
+            return redirect('/project/list')
+
+        settings.WHITE_REGEX_URL_LIST.append('/')
 
         ## 将用户信息和对应价格类型封装到 request
         _object = models.Transaction.objects.filter(user=user_object,status=2).order_by('-id').first()
         ## 如果时间为空或结束时间过期都改为免费版
-        if _object.end_datetime and not _object.end_datetime < datetime.datetime.now():
+        if _object.end_datetime is None or _object.end_datetime < datetime.datetime.now():
             _object = models.Transaction.objects.filter(user=user_object,status=2,price_policy=1).first()
         request.tracer.price_policy = _object.price_policy
 

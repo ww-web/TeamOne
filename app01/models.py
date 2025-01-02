@@ -65,7 +65,7 @@ class Project(models.Model):
 
 #### 参与者表
 class ProjectUser(models.Model):
-    user = models.ForeignKey(verbose_name='参与者', to='UserInfo', related_name='a')
+    user = models.ForeignKey(verbose_name='参与者', to='UserInfo')
     project = models.ForeignKey(verbose_name='项目', to="Project")
     star = models.BooleanField(verbose_name='星标', default=False)
     create_datetime = models.DateTimeField(verbose_name='加入时间', auto_now_add=True)

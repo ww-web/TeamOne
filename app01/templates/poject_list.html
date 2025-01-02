@@ -5,55 +5,92 @@
     <link rel="stylesheet" href="{% static 'css/projects_list.css' %}">
 {% endblock %}
 
-{% block style %}
-    .project{
-        margin-top: 10px;
-    }
-{% endblock %}
-
-
 {% block content %}
     <div class="container-fluid">
-        <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-            新建项目
-        </a>
-    </div>
+        <div style="margin: 10px 0;">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                新建项目
+            </a>
+        </div>
 
-    <div class="container">
-        {% for project in projects %}
-        <div data-goldlog-key="project-portal.project-card" class="card-container__Xkdh">
-            <div class="outer__H05m">
-                <div class="container__jRZR space__hHZA preview-enabled__n3A3 not-starred___BSl">
-                    <div class="thumbnail__T3be"
-                         style="background-image: url(&quot;https://tcs-ga.teambition.net/thumbnail/111tef9a0fbcb8a22b1ea0de47d85b9a52e0/w/600/h/300&quot;);"></div>
-                    <div class="mask__KQhc"></div>
-                    <div class="content__MLRM">
-                        <div class="header__QvEs">
-                            <div></div>
-                            <div><i aria-haspopup="true" aria-expanded="false"
-                                    scripturl="https://at.alicdn.com/t/font_1310450_jddjf5l9zi.js"
-                                    class="next-icon next-icon-user-add next-medium handler__A3LB">
-                                <svg viewBox="0 0 1024 1024">
-                                    <use xlink:href="#at-user-add"></use>
-                                </svg>
-                            </i><i aria-haspopup="true" aria-expanded="false"
-                                   scripturl="https://at.alicdn.com/t/font_1310450_jddjf5l9zi.js"
-                                   class="next-icon next-icon-trashbin next-medium handler__A3LB">
-                                <svg viewBox="0 0 1024 1024">
-                                    <use xlink:href="#at-trashbin"></use>
-                                </svg>
-                            </i></div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-star" aria-hidden="true"></i>
+                星标
+            </div>
+            <div class="panel-body">
+                {% for item in project_dict.star %}
+                <div class="item">
+                    <a href="#" class="title" style="background-color:{{ item.value.color }}">{{ item.value.name }}</a>
+                    <div class="info">
+                        <div>
+                            <a href="#" >
+                                <i class="fa fa-star" aria-hidden="true" style="color: #f0ad4e"></i>
+                            </a>
+                            <span>{{ item.value.creator.username }}</span>
                         </div>
-                        <div class="footer__ZKZV card-foot">
-                            <div class="name__wt7q" title="哔哩哔哩">{{ project.name }}</div>
+                        <div>
+                            <i class="fa fa-user-o" aria-hidden="true"></i>
+                            <span>{{ item.value.join_count }}</span>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-list" aria-hidden="true"></i>
+                我创建的
+            </div>
+            <div class="panel-body">
+            {% for item in project_dict.my %}
+                <div class="item">
+                    <a href="#" class="title" style="background-color:{{ item.get_color_display }};">{{ item.name }}</a>
+                    <div class="info">
+                        <div>
+                            <a href="#" >
+                                <i class="fa fa-star" aria-hidden="true" style="color: #d5d5d5"></i>
+                            </a>
+                            <span>{{ item.creator.username }}</span>
+                        </div>
+                        <div>
+                            <i class="fa fa-user-o" aria-hidden="true"></i>
+                            <span>{{ item.join_count }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-handshake-o" aria-hidden="true"></i>
+                我加入的
+            </div>
+            <div class="panel-body">
+                {% for item in project_dict.join %}
+                <div class="item">
+                    <a href="#" class="title" style="background-color:{{ item.value.color }}">{{ item.value.name }}</a>
+                    <div class="info">
+                        <div>
+                            <a href="#" >
+                                <i class="fa fa-star" aria-hidden="true" style="color: #d5d5d5"></i>
+                            </a>
+                            <span>{{ item.value.creator.username }}</span>
+                        </div>
+                        <div>
+                            <i class="fa fa-user-o" aria-hidden="true"></i>
+                            <span>{{ item.value.join_count }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
+
+
 
 <!-- 创建项目的模态框 -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
@@ -83,6 +120,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
 {% endblock %}
 
 {% block js %}

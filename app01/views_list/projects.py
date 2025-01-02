@@ -6,13 +6,30 @@ from app01 import models
 
 
 def project_list(request):
-    if request.method == 'GET':
-        form_a = projectForm.projectCreateForm(request)
-        form_b = projectForm.projectListForm()
-        projects = models.Project.objects.all()
-        return render(request,'poject_list.html',{'form_a':form_a,'form_b':form_b,'projects':projects})
 
-    form = projectForm.projectListForm(request,data=request.POST)
+
+    if request.method == 'GET':
+        project_dict = {'star': [],'my': [],'join': []}
+
+        form = projectForm.projectCreateForm(request)
+
+        my_projects = models.Project.objects.filter(creator=request.tracer.user)
+        for row in my_projects:
+            if row.star:
+                project_dict['star'].append({'value': row,'type': 'my'})
+            else:
+                project_dict['my'].append(row)
+        join_project_list = models.ProjectUser.objects.filter(user=request.tracer.user)
+        for item in join_project_list:
+            if item.star:
+                project_dict['star'].append({'value': item.project,'type':'join'})
+            else:
+                project_dict['join'].append(item.project)
+        for i in project_dict['my']:
+            print(i.name)
+        return render(request,'poject_list.html',{'form':form,'project_dict':project_dict})
+
+    form = projectForm.projectCreateForm(request,data=request.POST)
     if form.is_valid():
         form.instance.creator = request.tracer.user
         form.save()
